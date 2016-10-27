@@ -1,0 +1,311 @@
+%%=================================================================================
+%% 
+%% Copyright 2016 David A. Hernández Aponte, Fundacion  
+%% Centro Nacional de Desarrollo e Investigacion en Tecnologias Libres (CENDITEL)
+%%
+%% This program may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in 
+%% http://www.latex-project.org/lppl.txt
+%%
+%%=================================================================================
+
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{cliccenditel}[2016/10/27 v1.0 Estilo para la Revista CLIC]
+
+\sloppy
+\RequirePackage[none]{hyphenat}
+\RequirePackage[spanish,mexico]{babel} 
+\RequirePackage[utf8]{inputenc}
+\usepackage[hyphens]{url}
+%\RequirePackage[T1]{fontenc} 
+\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
+%\RequirePackage{lmodern}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{textcomp}
+\RequirePackage{float}
+\RequirePackage{graphicx}
+\RequirePackage[margin=2.5cm,includeheadfoot]{geometry}
+\RequirePackage{supertabular}
+\RequirePackage{multirow}
+\RequirePackage{array}
+\RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+\RequirePackage{helvet}
+\RequirePackage{etoolbox}
+\RequirePackage{wrapfig}
+\bibliographystyle{apa-good}
+\RequirePackage{chngcntr}
+\RequirePackage{hyperref} 
+\hypersetup{
+ colorlinks=true, 
+ linkcolor = coolblack,
+ urlcolor= coolblack,
+ citecolor= clicazul
+}
+
+\graphicspath{{imagenes/}}						% Ruta de la carpeta de imagenes
+%\renewcommand{\familydefault}{\sfdefault}		% Usa Sans Serif como fuente tipográfica
+\AtBeginDocument{\AtBeginShipoutNext		    % Elimina páginas en blanco al inicio
+	{\AtBeginShipoutDiscard}}
+\setcounter{tocdepth}{1}                         % Muestra capítulos y secciones en la TdC
+
+
+% ================================= % Colores % ================================= %
+\definecolor{coolblack}{rgb}{0.0, 0.18, 0.39}
+\definecolor{clicrojooscuro}{HTML}{FF3300}
+\definecolor{clicamarillooscuro}{HTML}{FF9801}
+\definecolor{clicazul}{HTML}{01669A}
+
+
+% ================================ % Cabecera % ================================= %
+\lhead[{\scriptsize Revista \textbf{\textcolor{clicrojooscuro}{C}\textcolor{clicamarillooscuro}{L}\textcolor{clicrojooscuro}{I}\textcolor{clicamarillooscuro}{C}}  Nro. \@nrorevista, Año \@anorevista \ -- \the\year}\\]
+{{\scriptsize Centro Nacional de Desarrollo e Investigaci\'on en Tecnolog\'ias Libres (CENDITEL)}\\
+{\scriptsize Revista Electr\'onica Conocimiento Libre y Licenciamiento (\textbf{\textcolor{clicrojooscuro}{C}\textcolor{clicamarillooscuro}{L}\textcolor{clicrojooscuro}{I}\textcolor{clicamarillooscuro}{C}}), M\'erida -- Venezuela}\\ 
+{\scriptsize ISSN: 2244-7423}}
+
+\rhead[{\scriptsize \textit{\@title}}]
+{\includegraphics[width=25mm]{logo}}
+
+\renewcommand{\headrulewidth}{1pt}
+\patchcmd{\headrule}{\hrule}{\color{clicazul}\hrule}{}{}
+
+\setlength\headheight{71pt}
+
+
+% =============================== % Capítulos % ================================= %
+\newcommand*{\fancychapterstyle}{  				% Formato de tíulo los capítulos
+	\hyphenpenalty=10000
+	\titleformat{\chapter}[display]
+	{\color{black}\normalfont\huge\bfseries\filright}{}{20pt}{\Huge}
+}
+
+\let\latexl@chapter\l@chapter
+\def\l@chapter#1#2{\begingroup\let\numberline\@gobble\latexl@chapter{#1}{#2}\endgroup}
+
+
+% ================================= % Sección % ================================= %
+\renewcommand{\thesection}{\arabic{section}}	% Numeración de las secciones
+\renewcommand{\thesubsection}{}					% Numeración de las subsecciones
+
+\titleformat{\section}[block]{\color{black}		% Formato de título de cada artículo
+	\Large\bfseries\filcenter}{}{0em}{}
+
+\def\@seccntformat#1{\csname #1ignore			% Oculta la numeración en el título
+	\expandafter\endcsname\csname the#1
+	\endcsname\quad}
+\let\sectionignore\@gobbletwo
+\let\latex@numberline\numberline
+\def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
+
+\let\latexl@section\l@section
+\def\l@section#1#2{\begingroup\let\numberline\@gobble\latexl@section{#1}{#2}\endgroup}
+
+
+% ========================== % Tablas y figuras % =============================== %
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\renewcommand{\thetable}{\arabic{table}}
+\renewcommand{\thefigure}{\arabic{figure}}
+
+
+% ================================= % Resumen % ================================= %
+\newenvironment{abstract}{						% Agrega resumenes a los libros
+\quote
+    \@beginparpenalty\@lowpenalty
+    \begin{center}%
+      \bfseries \abstractname
+      \@endparpenalty\@M
+    \end{center}}%
+   {\par\null}
+\endquote
+
+
+% ============================== % Bibliografía % =============================== %
+\patchcmd{\thebibliography}{\chapter*}{\subsection*}{}{}		% Elimina el salto de página
+
+
+
+% ================================= % Macros % ================================== %
+\def\nrorevista#1{\gdef\@nrorevista{#1}}
+\def\anorevista#1{\gdef\@anorevista{#1}}
+\def\autortapa#1{\gdef\@autortapa{#1}}
+\def\autoresimg#1{\gdef\@autoresimg{#1}}
+\def\maquetadores#1{\gdef\@maquetadores{#1}}
+\def\presentacion#1{\gdef\@presentacion{#1}}
+\def\editorial#1{\gdef\@editorial{#1}}
+\def\autoreditorial#1{\gdef\@autoreditorial{#1}}
+\def\autorpresentacion#1{\gdef\@autorpresentacion{#1}}
+\def\tablacontenido#1{\gdef\@tablacontenido{#1}}
+
+\def\@nrorevista{}
+\def\@anorevista{}
+\def\@autortapa{}
+\def\@autoresimg{}
+\def\@maquetadores{}
+\def\@autoreditorial{}
+\def\@autorpresentacion{}
+\def\@tablacontenido{}
+
+
+% ================================ % Margenes % ================================= %
+\topmargin  -2.2cm
+\textwidth  17.0cm 
+\textheight 21.0cm
+\footskip    2.0cm
+
+
+% ================================ % Portada % ================================= %
+\def\hojaportada{
+	\thispagestyle{empty}
+	\pagenumbering{gobble}
+	\newgeometry{top=0cm, bottom=0cm, right=0cm, left=0cm}
+	\noindent
+	\includegraphics[width=\paperwidth,height=\paperheight]{portada}
+}
+
+% ============================= % Contraportada % =============================== %
+\def\hojacontraportada{
+	\newpage
+	\thispagestyle{empty}
+	\pagenumbering{gobble}
+	\newgeometry{top=0cm, bottom=0cm, right=0cm, left=-0cm}
+	\noindent
+	\includegraphics[width=\paperwidth,height=\paperheight]{contraportada}
+}
+
+% ============================ % Página en blanco % ============================ %
+\def\blankpage{
+    \null
+    \thispagestyle{empty}
+    \newpage
+}
+
+% =============================== % Licencia % ================================= %
+\def\hojalicencia{
+	\pagestyle{plain}
+	\pagenumbering{gobble}
+	\restoregeometry
+	
+	\begin{flushleft}
+	\begin{Huge}
+	\textbf{Licenciamiento}
+	\end{Huge}
+	\end{flushleft}
+	
+	
+	\vskip1cm
+	
+	{\setlength{\parindent}{0cm}
+	Derecho de Autor \copyright \ \the\year \ Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL)
+	
+	Algunos Derechos Reservados -- Copyleft
+	
+	Depósito Legal No. PPI 201002ME3476
+	
+	ISSN No. 2244-7423
+	
+	Índice de Revistas de Ciencia y Tecnología (REVENCYT) No. RVR 065
+	
+	Diseño de tapa y contratapa: \@autortapa.
+	
+	Fotografía de tapa: \@autoresimg.
+	
+	Maquetación: \@maquetadores.
+	\\
+	\\
+	\begin{center}
+	Se utiliza una Licencia Creative Commons de Atribución--NoComercial--SinObraDerivada 3.0 -- Venezuela (CC
+	BY--NC--ND 3.0 VE), según la cual el propietario del derecho de autor concede libertades a terceros para copiar, distribuir, comunicar públicamente su trabajo en cualquier medio o formato.
+	\end{center}
+	
+	\begin{center}
+	\includegraphics[width=30mm]{cc-by-nc-nd}
+	\end{center}
+	
+	\begin{small}
+	\begin{description}
+	\item[Atribución]Debe reconocer los créditos de la obra de la manera especificada por el autor o el licenciador (pero no de una manera que sugiera que tiene su apoyo o apoyan el uso que hace de su obra).
+	\item[No comercial]No puede utilizar esta obra para fines comerciales.
+	\item[Sin obra derivada]Si usted mezcla, transforma o crea nuevo material a partir de esta obra, usted no podrá distribuir el material modificado.
+	\end{description}
+	
+	\end{small}
+	\vskip1cm
+	
+	\begin{center}
+	Revista Conocimiento Libre y Licenciamiento. Nro \@nrorevista \ Año \@anorevista \ (\the\year)
+	
+	{\small (\url{http://convite.cenditel.gob.ve/clic/}).}
+	
+	Centro Nacional de Desarrollo e Investigación en Tecnologías Libres -- CENDITEL
+	
+	{\small (\url{https://www.cenditel.gob.ve/}).}
+	
+	República Bolivariana de Venezuela
+	\end{center}
+	\pagebreak 
+	}
+}
+
+
+% ============================= % Presentación % =============================== %
+\def\hojapresentacion{
+	\newpage
+	\pagestyle{fancy}
+%	\pagenumbering{gobble}
+	
+	\begin{flushleft}
+	\begin{Huge}
+	\textbf{Presentación}
+	\end{Huge}
+	\end{flushleft}
+	
+	\input{presentacion}
+	
+	\vskip1cm
+	
+	\begin{flushright}
+	\@autorpresentacion\\
+	\textbf{Revista Conocimiento Libre y Licenciamiento\\
+	Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL)
+	}
+	\end{flushright}
+}
+
+
+% =============================== % Editorial % ================================ %
+\def\hojaeditorial{
+	\newpage
+	\pagestyle{fancy}
+%	\pagenumbering{gobble}
+	
+	\begin{flushleft}
+	\begin{Huge}
+	\textbf{Editorial}
+	\end{Huge}
+	\end{flushleft}
+	
+	\input{editorial}
+	
+	\vskip1cm
+	
+	\begin{flushright}
+	\@autoreditorial\\
+	Revista Conocimiento Libre.
+	\end{flushright}
+}
+
+
+% ================================= % Indice % ================================= %
+\def\tablacontenido{
+	\thispagestyle{empty}
+	\let\cleardoublepage\clearpage
+	\pagenumbering{gobble}
+	\tableofcontents
+}
+
+
+\endinput
