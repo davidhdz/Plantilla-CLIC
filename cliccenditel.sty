@@ -16,16 +16,14 @@
 %%=================================================================================
 
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{cliccenditel}[2016/10/27 v1.0 Estilo para la Revista CLIC]
+\ProvidesPackage{cliccenditel}[2016/11/08 v1.1 Estilo para la Revista CLIC]
 
 \sloppy
 \RequirePackage[none]{hyphenat}
 \RequirePackage[spanish,mexico]{babel} 
 \RequirePackage[utf8]{inputenc}
 \usepackage[hyphens]{url}
-%\RequirePackage[T1]{fontenc} 
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
-%\RequirePackage{lmodern}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
 \RequirePackage{textcomp}
@@ -40,7 +38,6 @@
 \RequirePackage{helvet}
 \RequirePackage{etoolbox}
 \RequirePackage{wrapfig}
-\bibliographystyle{apa-good}
 \RequirePackage{chngcntr}
 \RequirePackage{hyperref} 
 \hypersetup{
@@ -108,11 +105,15 @@
 \def\l@section#1#2{\begingroup\let\numberline\@gobble\latexl@section{#1}{#2}\endgroup}
 
 
-% ========================== % Tablas y figuras % =============================== %
-\counterwithin{figure}{section}
-\counterwithin{table}{section}
+% ======================== % Reinicio de numeraciones % ========================= %
+\counterwithin{figure}{section}				% Reinicia numeración para figuras
+\counterwithin{table}{section}				% Reinicia numeración para tablas
+\counterwithin{footnote}{section}			% Reinicia numeración para notas al pie
+\counterwithin{equation}{section}			% Reinicia numeración para ecuaciones
 \renewcommand{\thetable}{\arabic{table}}
 \renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\renewcommand{\theequation}{\arabic{equation}}
 
 
 % ================================= % Resumen % ================================= %
@@ -129,7 +130,6 @@
 
 % ============================== % Bibliografía % =============================== %
 \patchcmd{\thebibliography}{\chapter*}{\subsection*}{}{}		% Elimina el salto de página
-
 
 
 % ================================= % Macros % ================================== %
@@ -215,7 +215,7 @@
 	
 	Diseño de tapa y contratapa: \@autortapa.
 	
-	Fotografía de tapa: \@autoresimg.
+	Fotografía de tapa y contratapa: \@autoresimg.
 	
 	Maquetación: \@maquetadores.
 	\\
