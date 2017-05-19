@@ -11,22 +11,21 @@ Plantilla LaTeX para la Revista Conocimiento y Licenciamiento Libre
 
 \nrorevista{X}
 \anorevista{Y}
-\autortapa{Fulano}
-\autoresimg{Mengano,Zutano}
-\maquetadores{Fulano, Mengano, Perengano, Perencejo}
-\autorpresentacion{Perengano}
-\autoreditorial{Perencejo\\Comité Editorial}
+\anocalendario{AAAA}
+\autorpresentacion{Nombre Apellido}
+\autoreditorial{Nombre Apellido}
 
 \begin{document}
 
 \hojaportada
 \hojalicencia
-\input{comite}
 \tablacontenido
+\frontmatter
 \hojapresentacion
 \hojaeditorial
 \mainmatter
 \fancychapterstyle
+\addtocontents{toc}{\cftpagenumbersoff{chapter}}
 
 \chapter{Artículos sobre creación del conocimiento}\BgThispage
 \input{art1}

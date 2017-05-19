@@ -1,6 +1,6 @@
 %%=================================================================================
 %% 
-%% Copyright 2016 David A. Hernández Aponte, Fundacion  
+%% Copyright 2016 -- 2017 David A. Hernández Aponte, Fundacion  
 %% Centro Nacional de Desarrollo e Investigacion en Tecnologias Libres (CENDITEL)
 %%
 %% This program may be distributed and/or modified under the
@@ -12,7 +12,7 @@
 %%=================================================================================
 
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
-\ProvidesPackage{cliccenditel}[2016/12/20 v1.4 Estilo para la Revista CLIC]
+\ProvidesPackage{cliccenditel}[2017/05/19 v1.3 Estilo para la Revista CLIC]
 
 \sloppy
 \RequirePackage[none]{hyphenat}
@@ -42,9 +42,15 @@
 \RequirePackage{array}
 \RequirePackage{rotating}
 \RequirePackage{enumitem}
+\RequirePackage{gensymb}
 \RequirePackage{lastpage}
-\usepackage[pages=some]{background}
+\RequirePackage{booktabs}
+\RequirePackage{makecell}
+\RequirePackage[normalem]{ulem}
+\RequirePackage{bm}
+\RequirePackage[pages=some]{background}
 \RequirePackage[stable]{footmisc}
+\RequirePackage{tocloft}
 \setlistdepth{20}
 \RequirePackage{hyperref}
 \hypersetup{
@@ -54,11 +60,19 @@
  citecolor= clicazul
 }
 
+
+% ============================= % Configuraciones % ============================= %
 \graphicspath{{imagenes/}}						% Ruta de la carpeta de imagenes
 \AtBeginDocument{\AtBeginShipoutNext		    % Elimina páginas en blanco al inicio
 	{\AtBeginShipoutDiscard}}
 \setcounter{tocdepth}{1}                         % Muestra capítulos y secciones en la TdC
 
+
+\captionsetup[table]{
+  justification=justified,
+  singlelinecheck=false,%%%%%%% a single line is centered by default
+  skip = \medskipamount
+}
 
 \renewcommand{\labelitemi}{$\bullet$}			% Símbolo de listas
 
@@ -77,12 +91,12 @@
 scale=1,
 opacity=1,
 angle=0,
-%color=clicazul,
-contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marcaagua}}
+contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marcaagua.png}}
 }
 
+
 % ================================ % Cabecera % ================================= %
-\lhead[{\fclic \textbf{\textcolor{clicrojooscuro}{C}\textcolor{clicamarillooscuro}{L}\textcolor{clicrojooscuro}{I}\textcolor{clicamarillooscuro}{C}}  Nro. \@nrorevista, Año \@anorevista \ -- \the\year}\\]
+\lhead[{\fclic \textbf{\textcolor{clicrojooscuro}{C}\textcolor{clicamarillooscuro}{L}\textcolor{clicrojooscuro}{I}\textcolor{clicamarillooscuro}{C}}  Nro. \@nrorevista, Año \@anorevista \ -- \@anocalendario}\\]
 {{\fclic Centro Nacional de Desarrollo e Investigaci\'on en Tecnolog\'ias Libres (CENDITEL)}\\
 {\fclic Revista Electr\'onica Conocimiento Libre y Licenciamiento (\textbf{\textcolor{clicrojooscuro}{C}\textcolor{clicamarillooscuro}{L}\textcolor{clicrojooscuro}{I}\textcolor{clicamarillooscuro}{C}}), M\'erida -- Venezuela}\\ 
 {\fclic ISSN: 2244-7423}}
@@ -109,10 +123,13 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marca
 
 % ================================= % Sección % ================================= %
 \renewcommand{\thesection}{\arabic{section}}	% Numeración de las secciones
-\renewcommand{\thesubsection}{}					% Numeración de las subsecciones
+\renewcommand{\thesubsection}{}		% Numeración de las subsecciones
 
 \titleformat{\section}[block]{\color{black}		% Formato de título de cada artículo
 	\Large\bfseries\filcenter}{}{0em}{}
+
+\titleformat{\subsection}[block]{\noindent\color{black}		% Formato de título de cada subsección
+	\large\bfseries}{}{0em}{}
 
 \def\@seccntformat#1{\csname #1ignore			% Oculta la numeración en el título
 	\expandafter\endcsname\csname the#1
@@ -155,9 +172,10 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marca
 % ================================= % Macros % ================================== %
 \def\nrorevista#1{\gdef\@nrorevista{#1}}
 \def\anorevista#1{\gdef\@anorevista{#1}}
-\def\autortapa#1{\gdef\@autortapa{#1}}
-\def\autoresimg#1{\gdef\@autoresimg{#1}}
-\def\maquetadores#1{\gdef\@maquetadores{#1}}
+\def\anocalendario#1{\gdef\@anocalendario{#1}}
+%\def\autortapa#1{\gdef\@autortapa{#1}}
+%\def\autoresimg#1{\gdef\@autoresimg{#1}}
+%\def\maquetadores#1{\gdef\@maquetadores{#1}}
 \def\presentacion#1{\gdef\@presentacion{#1}}
 \def\editorial#1{\gdef\@editorial{#1}}
 \def\autoreditorial#1{\gdef\@autoreditorial{#1}}
@@ -166,9 +184,10 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marca
 
 \def\@nrorevista{}
 \def\@anorevista{}
-\def\@autortapa{}
-\def\@autoresimg{}
-\def\@maquetadores{}
+\def\@anocalendario{}
+%\def\@autortapa{}
+%\def\@autoresimg{}
+%\def\@maquetadores{}
 \def\@autoreditorial{}
 \def\@autorpresentacion{}
 \def\@tablacontenido{}
@@ -220,12 +239,12 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marca
 %	\end{flushleft}
 	
 %	\vskip1cm
-	\begin{small}
+	\begin{footnotesize}
 		
 	{\fontfamily{qag}\selectfont
 	
 	{\setlength{\parindent}{0cm}
-	Derecho de Autor \copyright \ \the\year \ Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL)
+	Derecho de Autor \copyright \ \@anocalendario \ Fundación Centro Nacional de Desarrollo e\\ Investigación en Tecnologías Libres (CENDITEL)
 	
 	Algunos Derechos Reservados -- Copyleft
 	
@@ -236,33 +255,11 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marca
 	Índice de Revistas de Ciencia y Tecnología (REVENCYT) No. RVR 065
 	\\
 	
-	Diseño de tapa y contratapa: \@autortapa.
-	
-	Imagen y fotografía de tapa y contratapa: \@autoresimg.
-	
-	Maquetación: \@maquetadores.
-	\\
-	
-	\begin{footnotesize}
-	\begin{center}
-	Se utiliza una Licencia Creative Commons \\de Atribución--NoComercial--SinObraDerivada 3.0 -- Venezuela (CC
-	BY--NC--ND 3.0 VE), \\según la cual el propietario del derecho de autor concede libertades a terceros para copiar, distribuir, comunicar públicamente su trabajo en cualquier medio o formato.
-	\end{center}
+    \input{licencia}
+	\vskip4cm
 	
 	\begin{center}
-	\includegraphics[width=30mm]{cc-by-nc-nd}
-	\end{center}
-	
-	\begin{description}[style=multiline,leftmargin=3cm]
-	\item[Atribución]Debe reconocer los créditos de la obra de la manera especificada por el autor o el licenciador (pero no de una manera que sugiera que tiene su apoyo o apoyan el uso que hace de su obra).
-	\item[No comercial]No puede utilizar esta obra para fines comerciales.
-	\item[Sin obra derivada]Si usted mezcla, transforma o crea nuevo material a partir de esta obra, usted no podrá distribuir el material modificado.
-	\end{description}
-	\end{footnotesize}
-	\vskip5cm
-	
-	\begin{center}
-	\textbf{Revista Conocimiento Libre y Licenciamiento. Nro \@nrorevista \ Año \@anorevista \ (\the\year)}
+	\textbf{Revista Conocimiento Libre y Licenciamiento. Nro \@nrorevista \ Año \@anorevista \ (\@anocalendario)}
 	
 	{\small (\url{http://convite.cenditel.gob.ve/clic/})}
 	
@@ -275,31 +272,30 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marca
 	}
 	\pagebreak 
 	}
-	\end{small}
+	\end{footnotesize}
 }
 
 
 % ============================= % Presentación % =============================== %
 \def\hojapresentacion{
 	\newpage
-%	\pagestyle{fancy}
+	\pagestyle{fancy}
 %	\pagenumbering{gobble}
 	
-	\begin{flushleft}
-	\begin{Huge}
-	\textbf{Presentación}
-	\end{Huge}
-	\end{flushleft}
+%	\begin{flushleft}
+%	\begin{Huge}
+%	\textbf{Presentación}
+%	\end{Huge}
+%	\end{flushleft}
 
 	\input{presentacion}
 	
-	\vskip1cm
+%	\vskip0.5cm
 	
 	\begin{flushright}
 	\@autorpresentacion\\
-	\textbf{Revista Conocimiento Libre y Licenciamiento\\
-	Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL)
-	}
+	Comité Editorial\\
+	\textbf{Revista Conocimiento Libre y Licenciamiento}
 	\end{flushright}
 }
 
@@ -310,16 +306,17 @@ contents={\includegraphics[width=\paperwidth,height=\paperheight]{imagenes/marca
 	\pagestyle{fancy}
 %	\pagenumbering{gobble}
 	
-	\begin{flushleft}
-	\begin{Huge}
-	\textbf{Editorial}
-	\end{Huge}
-	\end{flushleft}
+%	\begin{flushleft}
+%	\begin{Huge}
+%	\textbf{Editorial}
+%	\end{Huge}
+%	\end{flushleft}
 	
 	\input{editorial}
-
+%    \\
 	\begin{flushright}
 	\@autoreditorial\\
+	Comité Editorial\\
 	\textbf{Revista Conocimiento Libre y Licenciamiento}
 	\end{flushright}
 }
