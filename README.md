@@ -2,7 +2,9 @@
 ----
 Plantilla LaTeX para la Revista Conocimiento y Licenciamiento Libre
 
+Esta versión permite el uso de archivos de bibliografía `.bib`
 
+----
 ## Estructura de la plantilla base (clic.tex)
 
 ```latex
@@ -20,9 +22,11 @@ Plantilla LaTeX para la Revista Conocimiento y Licenciamiento Libre
 \hojaportada
 \hojalicencia
 \tablacontenido
+
 \frontmatter
 \hojapresentacion
 \hojaeditorial
+
 \mainmatter
 \fancychapterstyle
 \addtocontents{toc}{\cftpagenumbersoff{chapter}}
@@ -40,14 +44,21 @@ Plantilla LaTeX para la Revista Conocimiento y Licenciamiento Libre
 \input{art1}
 
 \hojacontraportada
+
 \end{document}
 ```
+
+----
+## Nota
+Para que se tomen las bibliografías de forma separada al final de cada artículo se debe compilar un archivo de bibliografía por cada artículo. Ejemplo: `bibtex art1.tex`
+
+----
 ## Ejemplos
 
-### Vista previa.
+#### Vista previa.
 ![thumbnail.png](thumbnail.png "Vista previa")
 
-### Revista Conocimiento y Licenciamiento Libre N°13.
+#### Revista Conocimiento y Licenciamiento Libre N°13.
 ![demo.png](demo.png "Vista previa")
 
 
